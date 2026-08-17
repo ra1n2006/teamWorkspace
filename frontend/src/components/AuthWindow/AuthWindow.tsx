@@ -1,10 +1,28 @@
 import { useState } from 'react'
+import axios from 'axios'
 import './AuthWindow.css'
 
 const AuthWindow = () => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [authState, setAuthState] = useState(false)
+
+    const submit = async (status: 'login' | 'register') => {
+        try {
+            const response = await axios.post(
+                'http://localhost:8080/api/auth',
+                {
+                    status: status,
+                    login: login,
+                    password: password
+                }
+            )
+
+            console.log(response.data)
+        } catch (error) {
+            console.error('Authorization error:', error)
+        }
+    }
 
     const LoginForm = () => {
         return (
@@ -23,7 +41,9 @@ const AuthWindow = () => {
                     onChange={(event) => setPassword(event.target.value)}
                 />
 
-                <button>Sign in</button>
+                <button onClick={() => submit('login')}>
+                    Sign in
+                </button>
             </section>
         )
     }
@@ -48,7 +68,9 @@ const AuthWindow = () => {
                 <article>repeat password</article>
                 <input type="password" />
 
-                <button>Sign up</button>
+                <button onClick={() => submit('register')}>
+                    Sign up
+                </button>
             </section>
         )
     }
@@ -56,7 +78,9 @@ const AuthWindow = () => {
     return (
         <section className="login-page">
             <section className="login-card">
-                <article className="login-title">TeamWorkspace</article>
+                <article className="login-title">
+                    TeamWorkspace
+                </article>
 
                 <article className="login-subtitle">
                     {authState ? 'sign in' : 'create account'}
@@ -66,7 +90,9 @@ const AuthWindow = () => {
 
                 <article className="register-text">
                     <button onClick={() => setAuthState(!authState)}>
-                        {authState ? 'Create account' : 'Already have an account? Sign in'}
+                        {authState
+                            ? 'Create account'
+                            : 'Already have an account? Sign in'}
                     </button>
                 </article>
             </section>
