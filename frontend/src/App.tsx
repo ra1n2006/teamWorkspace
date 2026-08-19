@@ -1,11 +1,20 @@
 import "./App.css"
 import "../src/components/AuthWindow/AuthWindow"
-import AuthWindow from "../src/components/AuthWindow/AuthWindow"
+import { BrowserRouter, Route, Routes } from "react-router"
+import AuthPage from "./pages/AuthPage/AuthPage"
+import MainPage from "./pages/MainPage/MainPage"
 const App = () => {
   
-  return <section className="main">
-    <AuthWindow/>
-  </section>
+  return (
+  <BrowserRouter>
+    <section className="main">
+      <Routes>
+        <Route path="/" element={<AuthPage/>} />
+        <Route path="/main" element={<MainPage/>} />
+      </Routes>
+    </section>
+  </BrowserRouter>
+  )
 }
 
 export default App

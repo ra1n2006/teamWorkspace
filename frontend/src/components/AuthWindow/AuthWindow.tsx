@@ -1,23 +1,28 @@
-import { useState } from 'react'
+import { useState, type FC } from 'react'
 import axios from 'axios'
 import './AuthWindow.css'
+import { ApiEndpoints } from '../../service/RESTservice'
+import { useNavigate } from 'react-router'
 
-const AuthWindow = () => {
-    const [login, setLogin] = useState('')
+export interface Props {
+    navigateFunction: () => void
+}
+const AuthWindow: FC<Props> = ({navigateFunction}) => {
+    const [login, setLogin] : string | any = useState('') 
     const [password, setPassword] = useState('')
     const [authState, setAuthState] = useState(false)
 
     const submit = async (status: 'login' | 'register') => {
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/auth',
+                ApiEndpoints.authPOST,
                 {
                     status: status,
                     login: login,
                     password: password
                 }
             )
-
+            navigateFunction()
             console.log(response.data)
         } catch (error) {
             console.error('Authorization error:', error)
