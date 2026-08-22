@@ -1,6 +1,9 @@
+import WorkspaceMenu from "../../components/WorkspaceMenu/WorkspaceMenu"
+
 const MainPage = () => {
-    return <>
-    </>
+    return (<section>
+        <WorkspaceMenu />
+    </section>)
 }
 
 export default MainPage

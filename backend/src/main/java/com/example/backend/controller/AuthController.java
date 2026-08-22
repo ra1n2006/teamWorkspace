@@ -1,24 +1,41 @@
 package com.example.backend.controller;
 
+import com.example.backend.DTO.AuthRequest;
+import com.example.backend.DTO.AuthResponse;
+import com.example.backend.service.AuthService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(
-        origins = "http://localhost:5173",
-        methods = {
-                RequestMethod.GET,
-                RequestMethod.POST,
-                RequestMethod.OPTIONS
-        }
-)
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
-    @PostMapping("/api/auth")
-    public String auth(@RequestBody String request) {
-        System.out.println("========== REQUEST ==========");
-        System.out.println(request);
-        System.out.println("=============================");
+    private final AuthService authService;
 
-        return "Backend received the request!";
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(
+            @RequestBody AuthRequest request
+    ) {
+        AuthResponse response = authService.register(request);
+
+        return ResponseEntity
+                .status(response.getStatus())
+                .body(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody AuthRequest request
+    ) {
+        AuthResponse response = authService.login(request);
+
+        return ResponseEntity
+                .status(response.getStatus())
+                .body(response);
     }
 }

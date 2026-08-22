@@ -3,6 +3,7 @@ import axios from 'axios'
 import './AuthWindow.css'
 import { ApiEndpoints } from '../../service/RESTservice'
 import { useNavigate } from 'react-router'
+import { userData } from '../../data/userData'
 
 export interface Props {
     navigateFunction: () => void
@@ -15,15 +16,17 @@ const AuthWindow: FC<Props> = ({navigateFunction}) => {
     const submit = async (status: 'login' | 'register') => {
         try {
             const response = await axios.post(
-                ApiEndpoints.authPOST,
+                ApiEndpoints.authPOST + `/${status}`,
                 {
                     status: status,
                     login: login,
                     password: password
                 }
             )
+            userData.setUserData(response.data.user)
             navigateFunction()
             console.log(response.data)
+
         } catch (error) {
             console.error('Authorization error:', error)
         }
