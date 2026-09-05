@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -12,7 +13,7 @@ import java.util.Date;
 public class JwtService {
 
     private final String secret =
-            "my-super-secret-key-my-super-secret-key-123456";
+            "vK7#pL2!xQ9@rT4$zM8&nW3*eY6^cH1ZZ";
 
     private final SecretKey key =
             Keys.hmacShaKeyFor(
@@ -33,5 +34,31 @@ public class JwtService {
                 )
                 .signWith(key)
                 .compact();
+    }
+
+    public String extractLogin(String token) {
+
+        Claims claims = Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.getSubject();
+    }
+
+    public boolean isTokenValid(String token) {
+
+        try {
+            Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token);
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -23,7 +23,10 @@ const AuthWindow: FC<Props> = ({navigateFunction}) => {
                     password: password
                 }
             )
-            userData.setUserData(response.data.user)
+            userData.setUserData({
+            ...response.data.user,
+            token: response.data.token
+            })
             navigateFunction()
             console.log(response.data)
 

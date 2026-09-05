@@ -1,0 +1,215 @@
+.home-page {
+    min-height: 100vh;
+    padding: 40px 60px;
+    box-sizing: border-box;
+    background: #f5f6f8;
+}
+
+/* Header */
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.home-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.home-header p {
+    margin: 8px 0 0;
+
+    font-size: 15px;
+    color: #6b7280;
+}
+
+/* Create button */
+
+.create-workspace {
+    border: none;
+    border-radius: 10px;
+
+    padding: 12px 20px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.create-workspace:hover {
+    background: #1d4ed8;
+}
+
+/* Grid */
+
+.workspace-grid {
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(280px, 1fr)
+    );
+
+    gap: 20px;
+}
+
+/* Card */
+
+.workspace-card {
+    min-height: 180px;
+
+    padding: 22px;
+
+    box-sizing: border-box;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+}
+
+.workspace-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #d1d5db;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Card header */
+
+.workspace-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.workspace-card-header h2 {
+    margin: 0;
+
+    font-size: 19px;
+    font-weight: 650;
+
+    color: #111827;
+}
+
+/* Three dots */
+
+.workspace-menu {
+    border: none;
+    background: transparent;
+
+    padding: 4px 7px;
+
+    border-radius: 6px;
+
+    font-size: 18px;
+
+    color: #6b7280;
+
+    cursor: pointer;
+}
+
+.workspace-menu:hover {
+    background: #f3f4f6;
+}
+
+/* Description */
+
+.workspace-description {
+    margin: 18px 0;
+
+    min-height: 42px;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    color: #6b7280;
+}
+
+/* Info */
+
+.workspace-info {
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #f0f0f0;
+
+    font-size: 12px;
+
+    color: #9ca3af;
+}
+
+/* Create card */
+
+.create-card {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    border: 2px dashed #d1d5db;
+
+    background: transparent;
+
+    color: #6b7280;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.create-card:hover {
+    border-color: #2563eb;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+}
+
+.create-icon {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #e5e7eb;
+
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.create-card:hover .create-icon {
+    background: #dbeafe;
+}

@@ -2,6 +2,9 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -13,6 +16,17 @@ public class User {
     private String login;
 
     private String password;
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    @ManyToMany
+    private Set<Project> projects = new HashSet<Project>();
 
     public User() {
     }
@@ -37,3 +51,4 @@ public class User {
         this.password = password;
     }
 }
+
