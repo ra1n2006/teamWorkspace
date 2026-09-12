@@ -3,4 +3,6 @@ export class ApiEndpoints {
     static authPOST: string = this.base + "/api/auth"
     static userGET: string = this.base + "/api/main"
     static project: string = this.base + "/api/new"
+    static projectGET: string = this.base + "/api/project"
+    static notePost: string = this.base + "/api/project/newNote"
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type FC } from "react"
 import { userData } from "../../data/userData"
 import ProjectCard from "../../UI/ProjectCard/ProjectCard"
 import "../WorkspaceMenu/WorkspaceMenu.css"
@@ -6,10 +6,12 @@ import CreateButton from "../../UI/CreateButton/CreateButton"
 import axios from "axios"
 import { observer } from "mobx-react-lite";
 import { ApiEndpoints } from "../../service/RESTservice"
+import { useNavigate } from "react-router"
 
-const WorkspaceMenu = observer(() => {
+
+const WorkspaceMenu = observer((navigateFunction) => {
     const [projectName, setProjectName] = useState("")
-
+    let navigate = useNavigate()
     useEffect(() => {
         const loadProjects = async () => {
         try {
@@ -49,7 +51,7 @@ const WorkspaceMenu = observer(() => {
 
             <section className="workspace-grid">
 
-                {userData.user?.projects?.map(el => <ProjectCard name={el.name}/>)}
+                {userData.user?.projects?.map(el => <ProjectCard name={el.name} navFn={() => navigate("/project")} id = {el.id}/>)}
 
                 <button className="workspace-card create-card">
                     <span className="create-icon">+</span>

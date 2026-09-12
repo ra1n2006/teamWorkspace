@@ -24,7 +24,7 @@ public class Project {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "project")
     private Set<Note> notes = new HashSet<>();
 
     public String getName() {

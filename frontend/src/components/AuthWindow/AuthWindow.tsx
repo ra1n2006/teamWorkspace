@@ -5,10 +5,10 @@ import { ApiEndpoints } from '../../service/RESTservice'
 import { useNavigate } from 'react-router'
 import { userData } from '../../data/userData'
 
-export interface Props {
+export interface NavProps {
     navigateFunction: () => void
 }
-const AuthWindow: FC<Props> = ({navigateFunction}) => {
+const AuthWindow: FC<NavProps> = ({navigateFunction}) => {
     const [login, setLogin] : string | any = useState('') 
     const [password, setPassword] = useState('')
     const [authState, setAuthState] = useState(false)

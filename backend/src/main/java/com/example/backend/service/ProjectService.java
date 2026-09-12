@@ -1,7 +1,9 @@
 package com.example.backend.service;
 
+import com.example.backend.DTO.NoteDTO;
 import com.example.backend.DTO.ProjectDTO;
 import com.example.backend.DTO.UserProjectResponse;
+import com.example.backend.model.Note;
 import com.example.backend.model.Project;
 import com.example.backend.model.User;
 import com.example.backend.repository.ProjectRepository;
@@ -49,4 +51,20 @@ public class ProjectService {
 
         return new UserProjectResponse(projects);
     }
+
+//    public Set<NoteDTO> getNotes(Long id, String login) {
+//        Project project = projectRepository.findById(id).orElseThrow();
+//
+//        Set<Note> notes = project.getNotes();
+//
+//        Set<NoteDTO> notesDTO = notes.stream()
+//                .map(note -> new NoteDTO(
+//                        note.getId(),
+//                        note.getTitle(),
+//                        note.getContent()
+//                ))
+//                .collect(Collectors.toSet());
+//
+//        return notesDTO;
+//    }
 }

@@ -1,11 +1,18 @@
 import {type FC} from "react"
+import { projectData } from "../../data/ProjectData"
 
 export interface Props {
     name: string
+    navFn: () => void
+    id: number
 }
-const ProjectCard: FC<Props> = ({name}) => {
+const ProjectCard: FC<Props> = ({name, navFn, id}) => {
     return (
-        <section className="workspace-card">
+        <section className="workspace-card" onClick={() =>  {
+            projectData.setProjectData({id: id})
+            navFn()}
+        }
+        >
             <section className="workspace-card-header">
                 <section>{name}</section>
                 <button className="workspace-menu">•••</button>
