@@ -23,10 +23,8 @@ const CreateButton: FC<Props> = ({title}) => {
                 }
             )
 
-            console.log(response.data)
 
             userData.addProject(response.data)
-
         } catch (error) {
             console.error("Failed to create project:", error)
         }

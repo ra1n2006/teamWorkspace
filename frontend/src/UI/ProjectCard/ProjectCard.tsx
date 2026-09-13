@@ -1,20 +1,22 @@
 import {type FC} from "react"
-import { projectData } from "../../data/ProjectData"
+import { projectData, type Project } from "../../data/ProjectData"
 
 export interface Props {
-    name: string
+    project: Project | undefined
     navFn: () => void
-    id: number
 }
-const ProjectCard: FC<Props> = ({name, navFn, id}) => {
+
+const ProjectCard: FC<Props> = ({project, navFn}) => {
     return (
-        <section className="workspace-card" onClick={() =>  {
-            projectData.setProjectData({id: id})
-            navFn()}
-        }
+        <section
+            className="workspace-card"
+            onClick={() => {
+                projectData.setProjectData(project)
+                navFn()
+            }}
         >
             <section className="workspace-card-header">
-                <section>{name}</section>
+                <section>{project!.name}</section>
                 <button className="workspace-menu">•••</button>
             </section>
 

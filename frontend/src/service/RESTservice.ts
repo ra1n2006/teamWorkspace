@@ -5,4 +5,5 @@ export class ApiEndpoints {
     static project: string = this.base + "/api/new"
     static projectGET: string = this.base + "/api/project"
     static notePost: string = this.base + "/api/project/newNote"
+    static projectPUT: string = this.base + "/api/project/join"
 }

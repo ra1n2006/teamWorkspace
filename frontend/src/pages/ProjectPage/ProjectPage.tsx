@@ -52,7 +52,6 @@ const ProjectPage = observer(() => {
         };
 
     useEffect(() => {
-        console.log(userData.user?.token)
         const loadNotes = async () => {
             try {
                 const response = await axios.get(
@@ -63,7 +62,7 @@ const ProjectPage = observer(() => {
                     }
                 }
                 );
-                
+                console.log(response.data)
                 projectData.setProjectNotes(response.data);
 
                 if (response.data.length > 0) {
@@ -91,6 +90,13 @@ const ProjectPage = observer(() => {
                 </button>
 
                 <h1>{projectData.project?.name ?? "Project"}</h1>
+
+                <div className="invite-link">
+                    <span>Invite:</span>
+                    <span className="invite-link-value">
+                        {projectData.project?.inviteLink}
+                    </span>
+                </div>
             </header>
 
             <div className="project-content">

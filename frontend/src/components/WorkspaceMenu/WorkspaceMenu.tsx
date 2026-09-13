@@ -7,6 +7,8 @@ import axios from "axios"
 import { observer } from "mobx-react-lite";
 import { ApiEndpoints } from "../../service/RESTservice"
 import { useNavigate } from "react-router"
+import { projectData } from "../../data/ProjectData"
+import JoinProject from "../../UI/JoinProject/JoinProject"
 
 
 const WorkspaceMenu = observer((navigateFunction) => {
@@ -35,7 +37,7 @@ const WorkspaceMenu = observer((navigateFunction) => {
     return (
         <section>
             <main className="home-page">
-
+            <JoinProject />
             <header className="home-header">
                 <div>
                     <h1>Привет, {userData.user?.login}</h1>
@@ -51,8 +53,7 @@ const WorkspaceMenu = observer((navigateFunction) => {
 
             <section className="workspace-grid">
 
-                {userData.user?.projects?.map(el => <ProjectCard name={el.name} navFn={() => navigate("/project")} id = {el.id}/>)}
-
+                {userData.user?.projects?.map(el => <ProjectCard project = {el} navFn={() => navigate("/project")}/>)}
                 <button className="workspace-card create-card">
                     <span className="create-icon">+</span>
                     <span>Create workspace</span>

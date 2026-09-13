@@ -5,6 +5,8 @@ export interface Project {
     name: string
     id : number
     notes: Note[]
+    inviteLink: string
+    usersNum: number
 }
 
 class ProjectData {
