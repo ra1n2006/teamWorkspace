@@ -1,8 +1,10 @@
 package com.example.backend.controller;
 
 
+import com.example.backend.DTO.JoinProjectRequest;
 import com.example.backend.DTO.NoteDTO;
 import com.example.backend.DTO.NoteRequest;
+import com.example.backend.DTO.ProjectDTO;
 import com.example.backend.model.Note;
 import com.example.backend.model.Project;
 import com.example.backend.repository.ProjectRepository;
@@ -14,13 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 @RestController
 @CrossOrigin(
         origins = "http://localhost:5173",
         methods = {
                 RequestMethod.GET,
                 RequestMethod.POST,
-                RequestMethod.OPTIONS
+                RequestMethod.OPTIONS,
+                RequestMethod.PUT
         }
 )
 public class ProjectController {
@@ -60,5 +64,19 @@ public class ProjectController {
     public NoteDTO newNote(@PathVariable Long id, @RequestBody NoteRequest noteReq, Authentication authentication) {
         String login = authentication.getName();
         return noteService.createNote(id, noteReq.getTitle());
+    }
+
+    @PutMapping("/api/project/join")
+    public ProjectDTO joinProject(@RequestBody JoinProjectRequest request, Authentication authentication) {
+        String login = authentication.getName();
+        return projectService.joinProject(request.getToken(), login);
+    }
+
+    @PostMapping("/api/project/note/{id}/save")
+    public NoteDTO saveNoteContent(@PathVariable Long id, @RequestBody NoteRequest noteReq, Authentication authentication) {
+        String login = authentication.getName();
+        String content = noteReq.getContent();
+        NoteDTO note = noteService.updateNote(id, content);
+        return note;
     }
 }

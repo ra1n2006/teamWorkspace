@@ -27,6 +27,8 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private Set<Note> notes = new HashSet<>();
 
+    private String inviteLink;
+
     public String getName() {
         return name;
     }
@@ -61,5 +63,13 @@ public class Project {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getInviteLink() {
+        return inviteLink;
+    }
+
+    public void setInviteLink(String inviteLink) {
+        this.inviteLink = inviteLink;
     }
 }

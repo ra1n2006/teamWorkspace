@@ -1,4 +1,9 @@
+import axios from "axios";
 import { useState, type FC } from "react";
+import { ApiEndpoints } from "../../service/RESTservice";
+import noteData from "../../data/NoteData";
+import { observer } from "mobx-react-lite/src/observer.js";
+import { userData } from "../../data/userData";
 
 interface Note {
     id: number;
@@ -11,17 +16,25 @@ interface Props {
     onSave: (note: Note) => void;
 }
 
-const NoteWindow: FC<Props> = ({ note, onSave }) => {
+const NoteWindow: FC<Props> = observer(({ note, onSave }) => {
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
 
-    const handleSave = () => {
+    const handleSave = async () => {
         onSave({
             ...note,
             title,
             content
         });
+        let response = await axios.post(ApiEndpoints.base + `/api/project/note/${note.id}/save`, {
+            content: content
+        }, {
+            headers: {
+                        Authorization: `Bearer ${userData.user?.token}`
+                    }
+        })
+        noteData.setData(response.data)
     };
 
     return (
@@ -54,6 +67,6 @@ const NoteWindow: FC<Props> = ({ note, onSave }) => {
 
         </div>
     );
-};
+});
 
 export default NoteWindow;

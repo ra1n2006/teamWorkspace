@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,11 +31,12 @@ public class ProjectService {
     }
 
     public ProjectDTO createNew(Project project) {
+        project.setInviteLink(UUID.randomUUID().toString());
         Project savedProject = projectRepository.save(project);
-
         return new ProjectDTO(
                 savedProject.getId(),
-                savedProject.getName()
+                savedProject.getName(),
+                savedProject.getInviteLink()
         );
     }
 
@@ -45,11 +47,27 @@ public class ProjectService {
                 .stream()
                 .map(project -> new ProjectDTO(
                         project.getId(),
-                        project.getName()
+                        project.getName(),
+                        project.getInviteLink()
                 ))
                 .collect(Collectors.toSet());
 
         return new UserProjectResponse(projects);
+    }
+
+    public ProjectDTO joinProject(String token, String login) {
+
+        User user = userRepository.findByLogin(login)
+                .orElseThrow();
+
+        Project project = projectRepository.findByInviteLink(token)
+                .orElseThrow();
+
+        user.getProjects().add(project);
+
+        userRepository.save(user);
+
+        return new ProjectDTO(project.getId(), project.getName(), project.getInviteLink());
     }
 
 //    public Set<NoteDTO> getNotes(Long id, String login) {

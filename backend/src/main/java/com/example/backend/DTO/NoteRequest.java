@@ -4,8 +4,18 @@ public class NoteRequest {
 
     private String title;
 
+    private String content;
+
     public NoteRequest(String title) {
         this.title = title;
+    }
+
+    public NoteRequest(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public NoteRequest() {
     }
 
     public String getTitle() {
@@ -14,5 +24,13 @@ public class NoteRequest {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
