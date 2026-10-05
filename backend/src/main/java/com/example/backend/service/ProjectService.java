@@ -20,19 +20,30 @@ public class ProjectService {
 
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final RedisService redisService;
 
     @Autowired
     public ProjectService(
             UserRepository userRepository,
-            ProjectRepository projectRepository
+            ProjectRepository projectRepository,
+            RedisService redisService
     ) {
         this.userRepository = userRepository;
         this.projectRepository = projectRepository;
+        this.redisService = redisService;
     }
 
-    public ProjectDTO createNew(Project project) {
+    public ProjectDTO createNew(String login, String title) {
+        User user = userRepository.findByLogin(login)
+                .orElseThrow();
+
+        Project project = new Project(title, user);
         project.setInviteLink(UUID.randomUUID().toString());
         Project savedProject = projectRepository.save(project);
+        redisService.saveInvite(
+                savedProject.getInviteLink(),
+                savedProject.getId()
+        );
         return new ProjectDTO(
                 savedProject.getId(),
                 savedProject.getName(),
@@ -59,7 +70,10 @@ public class ProjectService {
 
         User user = userRepository.findByLogin(login)
                 .orElseThrow();
-
+        Integer projectId = redisService.getProjectId(token);
+        if (projectId == null) {
+            throw new RuntimeException("Invalid invite token");
+        }
         Project project = projectRepository.findByInviteLink(token)
                 .orElseThrow();
 
@@ -70,19 +84,19 @@ public class ProjectService {
         return new ProjectDTO(project.getId(), project.getName(), project.getInviteLink());
     }
 
-//    public Set<NoteDTO> getNotes(Long id, String login) {
-//        Project project = projectRepository.findById(id).orElseThrow();
-//
-//        Set<Note> notes = project.getNotes();
-//
-//        Set<NoteDTO> notesDTO = notes.stream()
-//                .map(note -> new NoteDTO(
-//                        note.getId(),
-//                        note.getTitle(),
-//                        note.getContent()
-//                ))
-//                .collect(Collectors.toSet());
-//
-//        return notesDTO;
-//    }
+    public Set<NoteDTO> getNotes(Long id, String login) {
+        Project project = projectRepository.findById(id).orElseThrow();
+
+        Set<Note> notes = project.getNotes();
+
+        Set<NoteDTO> notesDTO = notes.stream()
+                .map(note -> new NoteDTO(
+                        note.getId(),
+                        note.getTitle(),
+                        note.getContent()
+                ))
+                .collect(Collectors.toSet());
+
+        return notesDTO;
+    }
 }

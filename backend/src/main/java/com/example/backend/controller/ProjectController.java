@@ -44,8 +44,6 @@ public class ProjectController {
             @PathVariable Long id,
             Authentication authentication
     ) {
-        String login = authentication.getName();
-
         Project project = projectRepository.findById(id)
                 .orElseThrow();
 

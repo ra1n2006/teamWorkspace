@@ -26,11 +26,9 @@ import java.util.Set;
 public class UserController {
 
     private final ProjectService projectService;
-    private final UserRepository userRepository;
 
-    public UserController(ProjectService projectService, UserRepository userRepository) {
+    public UserController(ProjectService projectService) {
         this.projectService = projectService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/api/main")
@@ -45,13 +43,8 @@ public class UserController {
             Authentication authentication
     ) {
         String login = authentication.getName();
-
-        User user = userRepository.findByLogin(login)
-                .orElseThrow();
-
-        Project project = new Project(request.getTitle(), user);
-
-        return projectService.createNew(project);
+        String title = request.getTitle();
+        return projectService.createNew(login, title);
     }
 
 }
