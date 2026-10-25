@@ -1,4 +1,4 @@
-package com.example.backend.DTO;
+package com.example.backend.DTO.user;
 
 public class UserProjectRequest {
     private String title;

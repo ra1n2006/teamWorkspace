@@ -1,7 +1,6 @@
 package com.example.backend.service;
 
-import com.example.backend.DTO.NoteDTO;
-import com.example.backend.DTO.NoteRequest;
+import com.example.backend.DTO.note.NoteDTO;
 import com.example.backend.model.Note;
 import com.example.backend.model.Project;
 import com.example.backend.repository.NoteRepository;
@@ -17,6 +16,7 @@ public class NoteService {
         this.projectRepository = projectRepository;
         this.noteRepository = noteRepository;
     }
+
     public NoteDTO createNote(Long proj_id, String title) {
         Project project = projectRepository.findById(proj_id).orElseThrow();
         Note note = noteRepository.save(new Note(project, title));
@@ -28,5 +28,10 @@ public class NoteService {
         note.setContent(content);
         noteRepository.save(note);
         return new NoteDTO(note.getTitle(), note.getContent());
+    }
+
+    public NoteDTO getNote(Long id) {
+        Note note = noteRepository.findById(id).orElseThrow();
+        return new NoteDTO(note.getId(), note.getTitle(), note.getContent());
     }
 }

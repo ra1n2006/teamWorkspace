@@ -1,4 +1,4 @@
-package com.example.backend.DTO;
+package com.example.backend.DTO.project;
 
 public class JoinProjectRequest {
     private String token;

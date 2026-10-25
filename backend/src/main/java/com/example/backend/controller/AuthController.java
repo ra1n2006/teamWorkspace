@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.DTO.AuthRequest;
-import com.example.backend.DTO.AuthResponse;
+import com.example.backend.DTO.auth.AuthRequest;
+import com.example.backend.DTO.auth.AuthResponse;
 import com.example.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

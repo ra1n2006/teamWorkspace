@@ -85,6 +85,7 @@
 }
 
 .note-item {
+    color: #1f2937;
     width: 100%;
     display: flex;
     align-items: center;
@@ -144,7 +145,22 @@
     font-size: 20px;
     font-weight: 600;
     color: #111827;
-    background: transparent;
+    background: white;
+}
+
+.note-content {
+    width: 100%;
+    min-height: 600px;
+    padding: 24px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #374151;
+    background: white;
 }
 
 .note-actions {
@@ -162,20 +178,6 @@
 
 .note-actions button:hover {
     background: #e5e7eb;
-}
-
-.note-content {
-    width: 100%;
-    min-height: 600px;
-    padding: 24px;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    resize: none;
-    font-family: inherit;
-    font-size: 16px;
-    line-height: 1.7;
-    color: #374151;
 }
 
 .empty-note {
@@ -249,3 +251,47 @@
     text-overflow: ellipsis;
 }
 
+.project-users {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 24px;
+}
+
+.project-users-title {
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+}
+
+.project-users-list {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.project-user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.user-login {
+    font-size: 13px;
+    color: #374151;
+    white-space: nowrap;
+}

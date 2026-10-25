@@ -1,6 +1,6 @@
-package com.example.backend.DTO;
+package com.example.backend.DTO.user;
 
-import com.example.backend.model.Project;
+import com.example.backend.DTO.project.ProjectDTO;
 
 import java.util.Set;
 

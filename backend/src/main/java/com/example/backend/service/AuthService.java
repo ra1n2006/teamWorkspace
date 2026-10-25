@@ -1,8 +1,8 @@
 package com.example.backend.service;
 
-import com.example.backend.DTO.AuthRequest;
-import com.example.backend.DTO.AuthResponse;
-import com.example.backend.DTO.UserDTO;
+import com.example.backend.DTO.auth.AuthRequest;
+import com.example.backend.DTO.auth.AuthResponse;
+import com.example.backend.DTO.user.UserDTO;
 import com.example.backend.model.User;
 import com.example.backend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;

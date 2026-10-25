@@ -1,18 +1,12 @@
 package com.example.backend.controller;
 
 
-import com.example.backend.DTO.ProjectDTO;
-import com.example.backend.DTO.UserProjectRequest;
-import com.example.backend.DTO.UserProjectResponse;
-import com.example.backend.model.Project;
-import com.example.backend.repository.UserRepository;
+import com.example.backend.DTO.project.ProjectDTO;
+import com.example.backend.DTO.user.UserProjectRequest;
+import com.example.backend.DTO.user.UserProjectResponse;
 import com.example.backend.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import com.example.backend.model.User;
-
-import java.util.Set;
 
 @RestController
 @CrossOrigin(

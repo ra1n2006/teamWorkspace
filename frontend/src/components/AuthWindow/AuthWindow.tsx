@@ -2,16 +2,24 @@ import { useState, type FC } from 'react'
 import axios from 'axios'
 import './AuthWindow.css'
 import { ApiEndpoints } from '../../service/RESTservice'
-import { useNavigate } from 'react-router'
 import { userData } from '../../data/userData'
+import { InputField } from '../../UI/InputField/InputField'
 
 export interface NavProps {
     navigateFunction: () => void
 }
 const AuthWindow: FC<NavProps> = ({navigateFunction}) => {
-    const [login, setLogin] : string | any = useState('') 
+    const [login, setLogin] = useState<string>('') 
     const [password, setPassword] = useState('')
     const [authState, setAuthState] = useState(false)
+
+    const handleSetLogin = (login : string) => {
+        setLogin(login)
+    }
+
+    const handleSetPassword = (password : string) => {
+        setPassword(password)
+    }
 
     const submit = async (status: 'login' | 'register') => {
         try {
@@ -38,18 +46,18 @@ const AuthWindow: FC<NavProps> = ({navigateFunction}) => {
     const LoginForm = () => {
         return (
             <section className="auth-form">
-                <article>login</article>
-                <input
-                    type="text"
-                    value={login}
-                    onChange={(event) => setLogin(event.target.value)}
+                <InputField 
+                    type = "text"
+                    value = {login}
+                    onChange={handleSetLogin}
+                    label="login"
                 />
 
-                <article>password</article>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
+                <InputField 
+                    type = "password"
+                    value = {password}
+                    onChange={handleSetPassword}
+                    label="password"
                 />
 
                 <button onClick={() => submit('login')}>
@@ -62,22 +70,19 @@ const AuthWindow: FC<NavProps> = ({navigateFunction}) => {
     const RegForm = () => {
         return (
             <section className="auth-form">
-                <article>login</article>
-                <input
-                    type="text"
-                    value={login}
-                    onChange={(event) => setLogin(event.target.value)}
+                <InputField 
+                    type = "text"
+                    value = {login}
+                    onChange={handleSetLogin}
+                    label="login"
                 />
 
-                <article>password</article>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
+                <InputField 
+                    type = "password"
+                    value = {password}
+                    onChange={handleSetPassword}
+                    label="password"
                 />
-
-                <article>repeat password</article>
-                <input type="password" />
 
                 <button onClick={() => submit('register')}>
                     Sign up
@@ -97,7 +102,7 @@ const AuthWindow: FC<NavProps> = ({navigateFunction}) => {
                     {authState ? 'sign in' : 'create account'}
                 </article>
 
-                {authState ? <LoginForm /> : <RegForm />}
+                {authState ? LoginForm() : RegForm()}
 
                 <article className="register-text">
                     <button onClick={() => setAuthState(!authState)}>

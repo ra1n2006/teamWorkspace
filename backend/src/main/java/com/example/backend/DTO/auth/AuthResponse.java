@@ -1,4 +1,6 @@
-package com.example.backend.DTO;
+package com.example.backend.DTO.auth;
+
+import com.example.backend.DTO.user.UserDTO;
 
 public class AuthResponse {
     private int status;

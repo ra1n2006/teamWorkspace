@@ -6,7 +6,7 @@ import "./ProjectPage.css";
 import NoteWindow from "../../components/NoteWindow/NoteWindow";
 import { projectData } from "../../data/ProjectData";
 import { observer } from "mobx-react-lite";
-import { userData } from "../../data/userData";
+import { userData, type User } from "../../data/userData";
 
 
 interface Note {
@@ -16,8 +16,8 @@ interface Note {
 }
 
 interface Project {
-    id: number;
-    title: string;
+    notes: Note[]
+    users: User[]
 }
 
 const ProjectPage = observer(() => {
@@ -52,18 +52,40 @@ const ProjectPage = observer(() => {
         };
 
     useEffect(() => {
-        const loadNotes = async () => {
+        // const loadNotes = async () => {
+        //     try {
+        //         const response = await axios.get(
+        //             `${ApiEndpoints.projectGET}/${projectId}/notes`, 
+        //             {
+        //             headers: {
+        //                 Authorization: `Bearer ${userData.user?.token}`
+        //             }
+        //         }
+        //         );
+        //         console.log(response.data)
+        //         projectData.setProjectNotes(response.data);
+
+        //         if (response.data.length > 0) {
+        //             setSelectedNote(response.data[0]);
+        //         }
+        //     } catch (error) {
+        //         console.error("Failed to load notes:", error);
+        //     }
+        // };
+
+        const loadProject = async () => {
             try {
                 const response = await axios.get(
-                    `${ApiEndpoints.projectGET}/${projectId}/notes`, 
+                    `${ApiEndpoints.projectGET}/${projectId}`, 
                     {
                     headers: {
                         Authorization: `Bearer ${userData.user?.token}`
                     }
                 }
                 );
-                console.log(response.data)
-                projectData.setProjectNotes(response.data);
+                let project : Project = response.data
+                projectData.setProjectNotes(project.notes);
+                projectData.setProjectUsers(project.users);
 
                 if (response.data.length > 0) {
                     setSelectedNote(response.data[0]);
@@ -71,10 +93,10 @@ const ProjectPage = observer(() => {
             } catch (error) {
                 console.error("Failed to load notes:", error);
             }
-        };
+        }
 
         if (projectId) {
-            loadNotes();
+            loadProject();
         }
     }, [projectId]);
 
@@ -96,6 +118,20 @@ const ProjectPage = observer(() => {
                     <span className="invite-link-value">
                         {projectData.project?.inviteLink}
                     </span>
+                </div>
+                <div className="project-users">
+                    <span className="project-users-title">Members</span>
+
+                    <div className="project-users-list">
+                        {projectData.project?.users?.map(user => (
+                            <div className="project-user">
+                                <div className="user-avatar">
+                                    {user.login.charAt(0).toUpperCase()}
+                                </div>
+                                <span className="user-login">{user.login}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </header>
 
@@ -136,7 +172,11 @@ const ProjectPage = observer(() => {
 
                 <main className="note-area">
                     {selectedNote ? (
-                        <NoteWindow note={selectedNote} onSave={() => {}}/>
+                    <NoteWindow
+                        key={selectedNote.id}
+                        note={selectedNote}
+                        onSave={() => {}}
+                    />
                     ) : (
                         <div className="empty-note">
                             <div className="empty-note-icon">📝</div>

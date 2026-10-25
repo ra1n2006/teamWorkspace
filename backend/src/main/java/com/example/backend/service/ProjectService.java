@@ -1,8 +1,9 @@
 package com.example.backend.service;
 
-import com.example.backend.DTO.NoteDTO;
-import com.example.backend.DTO.ProjectDTO;
-import com.example.backend.DTO.UserProjectResponse;
+import com.example.backend.DTO.note.NoteDTO;
+import com.example.backend.DTO.project.ProjectDTO;
+import com.example.backend.DTO.user.UserDTO;
+import com.example.backend.DTO.user.UserProjectResponse;
 import com.example.backend.model.Note;
 import com.example.backend.model.Project;
 import com.example.backend.model.User;
@@ -84,7 +85,16 @@ public class ProjectService {
         return new ProjectDTO(project.getId(), project.getName(), project.getInviteLink());
     }
 
-    public Set<NoteDTO> getNotes(Long id, String login) {
+//    public Set<UserDTO> getUsers(Long projectId) {
+//        Set<User> projectUsers = userRepository.findByProjectId(projectId).orElseThrow();
+//        Set<UserDTO> users = projectUsers.stream().map(user -> new UserDTO(
+//                user.getId(),
+//                user.getLogin()
+//        )).collect(Collectors.toSet());
+//        return users;
+//    }
+
+    public Set<NoteDTO> getNotes(Long id) {
         Project project = projectRepository.findById(id).orElseThrow();
 
         Set<Note> notes = project.getNotes();
@@ -98,5 +108,20 @@ public class ProjectService {
                 .collect(Collectors.toSet());
 
         return notesDTO;
+    }
+
+    public Set<UserDTO> getUsers(Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow();
+
+        Set<User> projectUsers = project.getUsers();
+
+        Set<UserDTO> userDTOS = projectUsers.stream()
+                .map(user -> new UserDTO(
+                        user.getId(),
+                        user.getLogin()
+                )).collect(Collectors.toSet());
+
+        return userDTOS;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.backend.DTO;
+package com.example.backend.DTO.auth;
 
 public class AuthRequest {
     private String login;

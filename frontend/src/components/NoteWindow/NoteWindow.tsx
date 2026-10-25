@@ -4,6 +4,7 @@ import { ApiEndpoints } from "../../service/RESTservice";
 import noteData from "../../data/NoteData";
 import { observer } from "mobx-react-lite/src/observer.js";
 import { userData } from "../../data/userData";
+import './NoteWindow.css'
 
 interface Note {
     id: number;
